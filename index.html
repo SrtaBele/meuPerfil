@@ -10,55 +10,92 @@
     <div class="container mt-5">
         <div class="card" id="profileCard">
             <div class="card-body text-center">
-                <img src="https://via.placeholder.com/150" alt="Imagem de Perfil" id="profileImage"
+                <img src="https://via.placeholder.com/150" alt="Imagem dePerfil" id="profileImage"
                      class="rounded-circle mb-3" style="width: 150px;">
                 <h3 id="profileName">Nome: Meu Perfil</h3>
                 <p id="profileAge">Idade: 18</p>
 
                 <h5>Hobbies:</h5>
                 <ul id="hobbiesList" class="list-group mb-3">
-                    <li class="list-group-item">Leitura</li>
-                    <li class="list-group-item">Esporte</li>
-                    <li class="list-group-item">Música</li>
+                    <li class="list-group-item d-flexjustify-content-between align-items-center">
+                        Leitura
+                        <button class="btn btn-sm btn-danger" onclick="removerHobby(this)">Excluir</button>
+                    </li>
+                    <li class="list-group-item d-flexjustify-content-between align-items-center">
+                        Esporte
+                        <button class="btn btn-sm btn-danger" onclick="removerHobby(this)">Excluir</button>
+                    </li>
+                    <li class="list-group-item d-flexjustify-content-between align-items-center">
+                        Música
+                        <button class="btn btn-sm btn-danger" onclick="removerHobby(this)">Excluir</button>
+                    </li>
                 </ul>
-
+                
                 <button class="btn btn-primary me-2" onclick="alterarNome()">Alterar Nome</button>
                 <button class="btn btn-success me-2" onclick="adicionarHobby()">Adicionar Hobby</button>
                 <button class="btn btn-warning me-2" onclick="mudarCorDeFundo()">Mudar Cor de Fundo</button>
-                <button class="btn btn-danger me-2" onclick="mudarFotoDePerfil()">Mudar Foto de Perfil</button>
+                <button class="btn btn-secondary me-2" onclick="mudarIdade()">Mudar Idade</button>
+                <button class="btn btn-info me-2"onclick="alterarImagem()">Mudar Imagem</button>
             </div>
         </div>
     </div>
 
     <script>
-        function alterarNome() {
-            const novoNome = prompt("Digite o novo nome");
-            if (novoNome) {
-                document.getElementById("profileName").textContent = "Nome: " + novoNome;
+        /*Função para o botão mudar a imagem*/
+        function alterarImagem() {
+            const novaImagem = prompt("Cole o URL da nova imagem:");
+            if (novaImagem) {
+                document.getElementById("profileImage").src = novaImagem;
             }
         }
 
+        /*Função para o botão mudar a idade*/
+        function mudarIdade() {
+            const novaIdade = prompt("Digite a nova idade:");
+            if (novaIdade) {
+                document.getElementById("profileAge").textContent = "Idade:" + novaIdade;
+            }
+        }
+
+        /*Função par a o botão mudar o nome*/
+        function alterarNome() {
+            const novoNome = prompt("Digite o novo nome:");
+            if (novoNome) {
+                document.getElementById("profileName").textContent = "Nome:" + novoNome;
+            }
+        }
+
+        /*função para o botão mudar o hobby*/
         function adicionarHobby() {
-            const novoHobby = prompt("Digite um novo hobby");
+            const novoHobby = prompt("Digite um novo hobby:");
             if (novoHobby) {
                 const li = document.createElement("li");
+                li.className = "list-group-item d-flexjustify-content-between align-items-center";
                 li.textContent = novoHobby;
-                li.className = "list-group-item";
+
+                const button = document.createElement("button");
+                button.textContent = "Excluir";
+                button.className = "btn btn-sm btn-danger";
+                button.onclick = function () {
+                    removerHobby(button);
+                };
+
+                li.appendChild(button);
                 document.getElementById("hobbiesList").appendChild(li);
             }
         }
 
+        /*Função para o botão remover*/
+        function removerHobby(button) {
+            const li = button.parentElement;
+            li.remove();
+        }
+
+        /*Função para botão mudar cor de fundo*/ 
         function mudarCorDeFundo() {
             const cores = ["#f8d7da", "#d1ecf1", "#d4edda", "#fff3cd", "#cce5ff"];
             const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
             document.getElementById("profileCard").style.backgroundColor = corAleatoria;
-        }
-
-        function mudarFotoDePerfil() {
-            const novaFoto = document.getElementById('profileImage');
-            if(novaFoto) {
-                img.url = "https://i.pinimg.com/originals/18/0e/fc/180efc3227b70e92b88fd3e71826fbad.jpg";
-            }
         }
     </script>
 
